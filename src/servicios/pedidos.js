@@ -3,6 +3,8 @@ const router = express.Router();
 const Pedido = require('../model/model_pedido');
 const DetPedido = require('../model/model_det_pedido');
 const { keycloak } = require('../middleware/keycloak_validate');
+const { QueryTypes } = require('sequelize');
+const database = require('../database');
 
 // Obtener todos los pedidos con sus detalles
 router.get('/pedidos', keycloak.protect(), async (req, res) => {
@@ -20,6 +22,31 @@ router.get('/pedidos', keycloak.protect(), async (req, res) => {
         res.json({
             estado: "success",
             body: pedidos
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
+router.get('/getsql', keycloak.protect(), async (req, res) => {
+    const token = req.kauth.grant.access_token;
+    const authData = token.content;
+    const username = authData.preferred_username;
+    try {
+        await database.query(`select * from dbchatbot.vw_pedidos where idusuario='${username}'`, { type: QueryTypes.SELECT })
+        .then((response) => {
+            res.json({
+                mensaje: "successfully",
+                authData: authData,
+                body: response
+            });
+        }).catch(error => {
+            res.json({
+                mensaje: "error",
+                error: error,
+                detmensaje: `Error en el servidor, ${error}`
+            });
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
