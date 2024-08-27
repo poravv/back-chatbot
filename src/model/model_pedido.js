@@ -15,6 +15,10 @@ const Pedido = sequelize.define('Pedido', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    numero: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     idusuario: {
         type: DataTypes.STRING,
         allowNull: false
