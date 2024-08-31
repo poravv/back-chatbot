@@ -1,19 +1,19 @@
 services:
-chatbot-back:
-  build:
-    context: ../
-    dockerfile: Dockerfile
-  image: back-chatbot-image
-  ports:
-    - "3004:3000"
-  environment:
-
-    DB_PASSWORD: Chatbot2024!
-    DB_HOST: chatbot-host
-    DB_USER: user
-    DB_PORT: 3306
-    DB_DATABASE: dbchatbot
-  container_name: back-chatbot-container
-  networks:
-    - network_chatbot
-  restart: always
+  chatbot-back:
+      build:
+        context: ../
+        dockerfile: Dockerfile
+      image: back-chatbot-image
+      ports:
+        - "3004:3000"
+      environment:
+      
+        DB_PASSWORD: Chatbot2024!
+        DB_HOST: chatbot-host
+        DB_USER: user
+        DB_PORT: 3306
+        DB_DATABASE: dbchatbot
+      container_name: back-chatbot-container
+      networks:
+        - network_chatbot
+      restart: always
