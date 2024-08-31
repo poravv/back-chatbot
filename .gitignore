@@ -6,9 +6,13 @@ Thumbs.db
 /build
 /dist
 
+/docker
+docker-compose.yml
+
 # Ignorar dependencias
 node_modules
 /vendor
+
 
 node_modules
 # Ignorar archivos de entorno
