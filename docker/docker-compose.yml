@@ -13,5 +13,5 @@ services:
       DB_HOST: db-pohapp
       DB_USER: root
       DB_PORT: 3306
-      DB_DATABASE: dbchatbot
+      DB_DATABASE: chatbot-host
     container_name: back-chatbot-container
