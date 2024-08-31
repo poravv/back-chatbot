@@ -1,17 +1,45 @@
+version: '3.8'
+
 services:
+  db:
+    image: mysql:8.0
+    container_name: dbchatbot
+    hostname: chatbot-host
+    environment:
+      MYSQL_ROOT_PASSWORD: Chatbot2024!
+      MYSQL_DATABASE: dbchatbot
+      MYSQL_USER: user
+      MYSQL_PASSWORD: Chatbot2024!
+    ports:
+      - "3309:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - network_chatbot
+    restart: always
+
   chatbot-back:
-      build:
-        context: ../
-        dockerfile: Dockerfile
-      image: back-chatbot-image
-      ports:
-        - "3004:3000"
-      environment:
-      
-        DB_PASSWORD: Chatbot2024!
-        DB_HOST: chatbot-host
-        DB_USER: user
-        DB_PORT: 3306
-        DB_DATABASE: dbchatbot
-      container_name: back-chatbot-container
-      restart: always
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    image: back-chatbot-image
+    ports:
+      - "3004:3000"
+    environment:
+    
+      DB_PASSWORD: Chatbot2024!
+      DB_HOST: chatbot-host
+      DB_USER: user
+      DB_PORT: 3306
+      DB_DATABASE: dbchatbot
+    container_name: back-chatbot-container
+    networks:
+      - network_chatbot
+    restart: always
+
+networks:
+  network_chatbot:
+
+volumes:
+  db_data:
